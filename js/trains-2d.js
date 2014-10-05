@@ -86,30 +86,33 @@ function draw(){
             scenery[loop_counter][3] = Math.random() * 20 + 20;
         }
 
-        buffer.fillStyle = scenery[loop_counter][4];
-        buffer.fillRect(
-          scenery[loop_counter][0],
-          scenery[loop_counter][1] + y,
-          scenery[loop_counter][2],
-          scenery[loop_counter][3]
-        );
+        // Only draw visible trees.
+        if(scenery[loop_counter][0] < width){
+            buffer.fillStyle = scenery[loop_counter][4];
+            buffer.fillRect(
+              scenery[loop_counter][0] + scenery[loop_counter][2],
+              scenery[loop_counter][1] + y,
+              scenery[loop_counter][2],
+              scenery[loop_counter][3]
+            );
 
-        buffer.fillStyle = scenery[loop_counter][5];
-        buffer.beginPath();
-        buffer.moveTo(
-          scenery[loop_counter][0] - scenery[loop_counter][2],
-          scenery[loop_counter][1] + y
-        );
-        buffer.lineTo(
-          scenery[loop_counter][0] + scenery[loop_counter][2] / 2,
-          scenery[loop_counter][1] + y - scenery[loop_counter][3] * 3
-        );
-        buffer.lineTo(
-          scenery[loop_counter][0] + scenery[loop_counter][2] * 2,
-          scenery[loop_counter][1] + y
-        );
-        buffer.closePath();
-        buffer.fill();
+            buffer.fillStyle = scenery[loop_counter][5];
+            buffer.beginPath();
+            buffer.moveTo(
+              scenery[loop_counter][0],
+              scenery[loop_counter][1] + y
+            );
+            buffer.lineTo(
+              scenery[loop_counter][0] + scenery[loop_counter][2] * 1.5,
+              scenery[loop_counter][1] + y - scenery[loop_counter][3] * 3
+            );
+            buffer.lineTo(
+              scenery[loop_counter][0] + scenery[loop_counter][2] * 3,
+              scenery[loop_counter][1] + y
+            );
+            buffer.closePath();
+            buffer.fill();
+        }
     }while(loop_counter--);
 
     // Draw buffer onto the canvas.
