@@ -1,3 +1,12 @@
+function random_hex(){
+    var hex = '#'
+      + Math.floor(Math.random() * 9)
+      + Math.floor(Math.random() * 9)
+      + Math.floor(Math.random() * 9);
+
+    return hex;
+}
+
 function reset_world(){
     document.getElementById('canvas').style.background = '#141';
 
@@ -40,7 +49,7 @@ function reset_world(){
           1,
           1,
           '#543',
-          '#0f0'
+          random_hex()
        ]);
     }while(loop_counter--);
 }
