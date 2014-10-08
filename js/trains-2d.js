@@ -1,3 +1,79 @@
+function draw(){
+    // Draw the world.
+    buffer.clearRect(
+      0,
+      0,
+      width,
+      height
+    );
+    buffer.drawImage(
+      document.getElementById('buffer-static'),
+      0,
+      0
+    );
+
+    // Draw scenery.
+    loop_counter = scenery.length - 1;
+    do{
+        scenery[loop_counter][0] -= 4;
+
+        if(scenery[loop_counter][0] < scenery[loop_counter][6]){
+            scenery[loop_counter][0] = width + Math.random() * 200;
+
+            scenery[loop_counter][1] = Math.random() * height - y;
+            while(scenery[loop_counter][1] > -80 - scenery[loop_counter][3]
+              && scenery[loop_counter][1] < 80){
+                scenery[loop_counter][1] = Math.random() * height - y;
+            }
+
+            scenery[loop_counter][2] = Math.random() * 20 + 20;
+            scenery[loop_counter][6] = -scenery[loop_counter][2] * 3;
+            scenery[loop_counter][3] = Math.random() * 20 + 20;
+        }
+
+        // Only draw visible trees.
+        if(scenery[loop_counter][0] < width){
+            buffer.fillStyle = scenery[loop_counter][4];
+            buffer.fillRect(
+              scenery[loop_counter][0] + scenery[loop_counter][2],
+              scenery[loop_counter][1] + y,
+              scenery[loop_counter][2],
+              scenery[loop_counter][3]
+            );
+
+            buffer.fillStyle = scenery[loop_counter][5];
+            buffer.beginPath();
+            buffer.moveTo(
+              scenery[loop_counter][0],
+              scenery[loop_counter][1] + y
+            );
+            buffer.lineTo(
+              scenery[loop_counter][0] + scenery[loop_counter][2] * 1.5,
+              scenery[loop_counter][1] + y - scenery[loop_counter][3] * 3
+            );
+            buffer.lineTo(
+              scenery[loop_counter][0] - scenery[loop_counter][6],
+              scenery[loop_counter][1] + y
+            );
+            buffer.closePath();
+            buffer.fill();
+        }
+    }while(loop_counter--);
+
+    // Draw buffer onto the canvas.
+    canvas.clearRect(
+      0,
+      0,
+      width,
+      height
+    );
+    canvas.drawImage(
+      document.getElementById('buffer'),
+      0,
+      0
+    );
+}
+
 function random_hex(){
     var hex = '#'
       + Math.floor(Math.random() * 9)
@@ -49,84 +125,10 @@ function reset_world(){
           1,
           1,
           '#543',
-          random_hex()
+          random_hex(),
+          3
        ]);
     }while(loop_counter--);
-}
-
-function draw(){
-    // Draw the world.
-    buffer.clearRect(
-      0,
-      0,
-      width,
-      height
-    );
-    buffer.drawImage(
-      document.getElementById('buffer-static'),
-      0,
-      0
-    );
-
-    // Draw scenery.
-    loop_counter = scenery.length - 1;
-    do{
-        scenery[loop_counter][0] -= 4;
-
-        if(scenery[loop_counter][0] < -scenery[loop_counter][2] * 3){
-            scenery[loop_counter][0] = width + Math.random() * 200;
-            
-            scenery[loop_counter][1] = Math.random() * height - y;
-            while(scenery[loop_counter][1] > -80 - scenery[loop_counter][3]
-              && scenery[loop_counter][1] < 80){
-                scenery[loop_counter][1] = Math.random() * height - y;
-            }
-
-            scenery[loop_counter][2] = Math.random() * 20 + 20;
-            scenery[loop_counter][3] = Math.random() * 20 + 20;
-        }
-
-        // Only draw visible trees.
-        if(scenery[loop_counter][0] < width){
-            buffer.fillStyle = scenery[loop_counter][4];
-            buffer.fillRect(
-              scenery[loop_counter][0] + scenery[loop_counter][2],
-              scenery[loop_counter][1] + y,
-              scenery[loop_counter][2],
-              scenery[loop_counter][3]
-            );
-
-            buffer.fillStyle = scenery[loop_counter][5];
-            buffer.beginPath();
-            buffer.moveTo(
-              scenery[loop_counter][0],
-              scenery[loop_counter][1] + y
-            );
-            buffer.lineTo(
-              scenery[loop_counter][0] + scenery[loop_counter][2] * 1.5,
-              scenery[loop_counter][1] + y - scenery[loop_counter][3] * 3
-            );
-            buffer.lineTo(
-              scenery[loop_counter][0] + scenery[loop_counter][2] * 3,
-              scenery[loop_counter][1] + y
-            );
-            buffer.closePath();
-            buffer.fill();
-        }
-    }while(loop_counter--);
-
-    // Draw buffer onto the canvas.
-    canvas.clearRect(
-      0,
-      0,
-      width,
-      height
-    );
-    canvas.drawImage(
-      document.getElementById('buffer'),
-      0,
-      0
-    );
 }
 
 function resize(){
