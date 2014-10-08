@@ -73,7 +73,7 @@ function draw(){
     do{
         scenery[loop_counter][0] -= 4;
 
-        if(scenery[loop_counter][0] < -scenery[loop_counter][2] * 2){
+        if(scenery[loop_counter][0] < -scenery[loop_counter][2] * 3){
             scenery[loop_counter][0] = width + Math.random() * 200;
             
             scenery[loop_counter][1] = Math.random() * height - y;
