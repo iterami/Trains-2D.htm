@@ -75,12 +75,11 @@ function draw(){
 }
 
 function random_hex(){
-    var hex = '#'
-      + Math.floor(Math.random() * 9)
-      + Math.floor(Math.random() * 9)
-      + Math.floor(Math.random() * 9);
-
-    return hex;
+    var choices = '0123456789abcdef';
+    return '#'
+      + choices.charAt(Math.floor(Math.random() * 16))
+      + choices.charAt(Math.floor(Math.random() * 16))
+      + choices.charAt(Math.floor(Math.random() * 16));
 }
 
 function reset_world(){
