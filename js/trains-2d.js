@@ -125,7 +125,7 @@ function reset_world(){
           1,
           '#543',
           random_hex(),
-          3
+          3,
        ]);
     }while(loop_counter--);
 }
