@@ -15,22 +15,6 @@ function draw(){
     // Draw scenery.
     loop_counter = scenery.length - 1;
     do{
-        scenery[loop_counter][0] -= 4;
-
-        if(scenery[loop_counter][0] < scenery[loop_counter][6]){
-            scenery[loop_counter][0] = width + Math.random() * 200;
-
-            scenery[loop_counter][1] = Math.random() * height - y;
-            while(scenery[loop_counter][1] > -80 - scenery[loop_counter][3]
-              && scenery[loop_counter][1] < 80){
-                scenery[loop_counter][1] = Math.random() * height - y;
-            }
-
-            scenery[loop_counter][2] = Math.random() * 20 + 20;
-            scenery[loop_counter][6] = -scenery[loop_counter][2] * 3;
-            scenery[loop_counter][3] = Math.random() * 20 + 20;
-        }
-
         // Only draw visible trees.
         if(scenery[loop_counter][0] < width){
             buffer.fillStyle = scenery[loop_counter][4];
@@ -72,6 +56,41 @@ function draw(){
       0,
       0
     );
+
+    window.requestAnimationFrame(draw);
+}
+
+function init(){
+    resize();
+    window.onresize = resize;
+
+    window.requestAnimationFrame(draw);
+    setInterval(
+      'logic()',
+      30
+    );
+}
+
+function logic(){
+    // Update scenery.
+    loop_counter = scenery.length - 1;
+    do{
+        scenery[loop_counter][0] -= 4;
+
+        if(scenery[loop_counter][0] < scenery[loop_counter][6]){
+            scenery[loop_counter][0] = width + Math.random() * 200;
+
+            scenery[loop_counter][1] = Math.random() * height - y;
+            while(scenery[loop_counter][1] > -80 - scenery[loop_counter][3]
+              && scenery[loop_counter][1] < 80){
+                scenery[loop_counter][1] = Math.random() * height - y;
+            }
+
+            scenery[loop_counter][2] = Math.random() * 20 + 20;
+            scenery[loop_counter][6] = -scenery[loop_counter][2] * 3;
+            scenery[loop_counter][3] = Math.random() * 20 + 20;
+        }
+    }while(loop_counter--);
 }
 
 function random_hex(){
@@ -156,10 +175,4 @@ var y = 0;
 var width = 0;
 var world = [];
 
-resize();
-window.onresize = resize;
-
-setInterval(
-  'draw()',
-  30
-);
+window.onload = init;
