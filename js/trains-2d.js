@@ -16,32 +16,34 @@ function draw(){
     loop_counter = scenery.length - 1;
     do{
         // Only draw visible trees.
-        if(scenery[loop_counter][0] < width){
-            buffer.fillStyle = scenery[loop_counter][4];
-            buffer.fillRect(
-              scenery[loop_counter][0] + scenery[loop_counter][2],
-              scenery[loop_counter][1] + y,
-              scenery[loop_counter][2],
-              scenery[loop_counter][3]
-            );
-
-            buffer.fillStyle = scenery[loop_counter][5];
-            buffer.beginPath();
-            buffer.moveTo(
-              scenery[loop_counter][0],
-              scenery[loop_counter][1] + y
-            );
-            buffer.lineTo(
-              scenery[loop_counter][0] + scenery[loop_counter][2] * 1.5,
-              scenery[loop_counter][1] + y - scenery[loop_counter][3] * 3
-            );
-            buffer.lineTo(
-              scenery[loop_counter][0] - scenery[loop_counter][6],
-              scenery[loop_counter][1] + y
-            );
-            buffer.closePath();
-            buffer.fill();
+        if(scenery[loop_counter][0] > width){
+            continue;
         }
+
+        buffer.fillStyle = scenery[loop_counter][4];
+        buffer.fillRect(
+          scenery[loop_counter][0] + scenery[loop_counter][2],
+          scenery[loop_counter][1] + y,
+          scenery[loop_counter][2],
+          scenery[loop_counter][3]
+        );
+
+        buffer.fillStyle = scenery[loop_counter][5];
+        buffer.beginPath();
+        buffer.moveTo(
+          scenery[loop_counter][0],
+          scenery[loop_counter][1] + y
+        );
+        buffer.lineTo(
+          scenery[loop_counter][0] + scenery[loop_counter][2] * 1.5,
+          scenery[loop_counter][1] + y - scenery[loop_counter][3] * 3
+        );
+        buffer.lineTo(
+          scenery[loop_counter][0] - scenery[loop_counter][6],
+          scenery[loop_counter][1] + y
+        );
+        buffer.closePath();
+        buffer.fill();
     }while(loop_counter--);
 
     // Draw buffer onto the canvas.
@@ -77,19 +79,21 @@ function logic(){
     do{
         scenery[loop_counter][0] -= 4;
 
-        if(scenery[loop_counter][0] < scenery[loop_counter][6]){
-            scenery[loop_counter][0] = width + Math.random() * 200;
-
-            scenery[loop_counter][1] = Math.random() * height - y;
-            while(scenery[loop_counter][1] > -80 - scenery[loop_counter][3]
-              && scenery[loop_counter][1] < 80){
-                scenery[loop_counter][1] = Math.random() * height - y;
-            }
-
-            scenery[loop_counter][2] = Math.random() * 20 + 20;
-            scenery[loop_counter][6] = -scenery[loop_counter][2] * 3;
-            scenery[loop_counter][3] = Math.random() * 20 + 20;
+        if(scenery[loop_counter][0] > scenery[loop_counter][6]){
+            continue;
         }
+
+        scenery[loop_counter][0] = width + Math.random() * 200;
+
+        scenery[loop_counter][1] = Math.random() * height - y;
+        while(scenery[loop_counter][1] > -80 - scenery[loop_counter][3]
+          && scenery[loop_counter][1] < 80){
+            scenery[loop_counter][1] = Math.random() * height - y;
+        }
+
+        scenery[loop_counter][2] = Math.random() * 20 + 20;
+        scenery[loop_counter][6] = -scenery[loop_counter][2] * 3;
+        scenery[loop_counter][3] = Math.random() * 20 + 20;
     }while(loop_counter--);
 }
 
