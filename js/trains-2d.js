@@ -62,17 +62,6 @@ function draw(){
     window.requestAnimationFrame(draw);
 }
 
-function init(){
-    resize();
-    window.onresize = resize;
-
-    window.requestAnimationFrame(draw);
-    setInterval(
-      'logic()',
-      30
-    );
-}
-
 function logic(){
     // Update scenery.
     loop_counter = scenery.length - 1;
@@ -179,4 +168,13 @@ var y = 0;
 var width = 0;
 var world = [];
 
-window.onload = init;
+window.onload = function(){
+    resize();
+    window.onresize = resize;
+
+    window.requestAnimationFrame(draw);
+    setInterval(
+      'logic()',
+      30
+    );
+};
