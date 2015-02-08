@@ -173,7 +173,7 @@ window.onload = function(){
     window.onresize = resize;
 
     window.requestAnimationFrame(draw);
-    setInterval(
+    window.setInterval(
       'logic()',
       30
     );
