@@ -13,38 +13,37 @@ function draw(){
     );
 
     // Draw scenery.
-    loop_counter = scenery.length - 1;
-    do{
-        // Only draw visible trees.
-        if(scenery[loop_counter][0] > width){
+    for(var object in scenery){
+        // Only draw visible scenery.
+        if(scenery[object][0] > width){
             continue;
         }
 
-        buffer.fillStyle = scenery[loop_counter][4];
+        buffer.fillStyle = scenery[object][4];
         buffer.fillRect(
-          scenery[loop_counter][0] + scenery[loop_counter][2],
-          scenery[loop_counter][1] + y,
-          scenery[loop_counter][2],
-          scenery[loop_counter][3]
+          scenery[object][0] + scenery[object][2],
+          scenery[object][1] + y,
+          scenery[object][2],
+          scenery[object][3]
         );
 
-        buffer.fillStyle = scenery[loop_counter][5];
+        buffer.fillStyle = scenery[object][5];
         buffer.beginPath();
         buffer.moveTo(
-          scenery[loop_counter][0],
-          scenery[loop_counter][1] + y
+          scenery[object][0],
+          scenery[object][1] + y
         );
         buffer.lineTo(
-          scenery[loop_counter][0] + scenery[loop_counter][2] * 1.5,
-          scenery[loop_counter][1] + y - scenery[loop_counter][3] * 3
+          scenery[object][0] + scenery[object][2] * 1.5,
+          scenery[object][1] + y - scenery[object][3] * 3
         );
         buffer.lineTo(
-          scenery[loop_counter][0] - scenery[loop_counter][6],
-          scenery[loop_counter][1] + y
+          scenery[object][0] - scenery[object][6],
+          scenery[object][1] + y
         );
         buffer.closePath();
         buffer.fill();
-    }while(loop_counter--);
+    }
 
     // Draw buffer onto the canvas.
     canvas.clearRect(
@@ -64,26 +63,25 @@ function draw(){
 
 function logic(){
     // Update scenery.
-    loop_counter = scenery.length - 1;
-    do{
-        scenery[loop_counter][0] -= 4;
+    for(var object in scenery){
+        scenery[object][0] -= 4;
 
-        if(scenery[loop_counter][0] > scenery[loop_counter][6]){
+        if(scenery[object][0] > scenery[object][6]){
             continue;
         }
 
-        scenery[loop_counter][0] = width + Math.random() * 200;
+        scenery[object][0] = width + Math.random() * 200;
 
-        scenery[loop_counter][1] = Math.random() * height - y;
-        while(scenery[loop_counter][1] > -80 - scenery[loop_counter][3]
-          && scenery[loop_counter][1] < 80){
-            scenery[loop_counter][1] = Math.random() * height - y;
+        scenery[object][1] = Math.random() * height - y;
+        while(scenery[object][1] > -80 - scenery[object][3]
+          && scenery[object][1] < 80){
+            scenery[object][1] = Math.random() * height - y;
         }
 
-        scenery[loop_counter][2] = Math.random() * 20 + 20;
-        scenery[loop_counter][6] = -scenery[loop_counter][2] * 3;
-        scenery[loop_counter][3] = Math.random() * 20 + 20;
-    }while(loop_counter--);
+        scenery[object][2] = Math.random() * 20 + 20;
+        scenery[object][6] = -scenery[object][2] * 3;
+        scenery[object][3] = Math.random() * 20 + 20;
+    }
 }
 
 function random_hex(){
@@ -94,18 +92,30 @@ function random_hex(){
       + choices.charAt(Math.floor(Math.random() * 16));
 }
 
-function reset_world(){
+function resize(){
+    height = window.innerHeight;
+    document.getElementById('buffer').height = height;
+    document.getElementById('buffer-static').height = height;
+    document.getElementById('canvas').height = height;
+    y = height / 2;
+
+    width = window.innerWidth;
+    document.getElementById('buffer').width = width;
+    document.getElementById('buffer-static').width = width;
+    document.getElementById('canvas').width = width;
+    x = width / 2;
+
     document.getElementById('canvas').style.background = '#141';
 
     // Reset static world components.
     world.length = 0;
     world = [
+      [0, y - 40, width, 80, '#432'],
+      [0, y + 10, width, 4, '#444'],
+      [0, y - 14, width, 4, '#444'],
       [x - 310, y - 30, 200, 60, '#555'],
       [x - 100, y - 30, 200, 60, '#555'],
       [x + 110, y - 30, 200, 60, '#555'],
-      [0, y + 10, width, 4, '#444'],
-      [0, y - 14, width, 4, '#444'],
-      [0, y - 40, width, 80, '#432'],
     ];
 
     // Setup world static buffer.
@@ -115,16 +125,15 @@ function reset_world(){
       height,
       width
     );
-    loop_counter = world.length - 1;
-    do{
-        buffer_static.fillStyle = world[loop_counter][4];
+    for(var object in world){
+        buffer_static.fillStyle = world[object][4];
         buffer_static.fillRect(
-          world[loop_counter][0],
-          world[loop_counter][1],
-          world[loop_counter][2],
-          world[loop_counter][3]
+          world[object][0],
+          world[object][1],
+          world[object][2],
+          world[object][3]
         );
-    }while(loop_counter--);
+    }
 
     // Reset scenery.
     scenery.length = 0;
@@ -142,22 +151,6 @@ function reset_world(){
     }while(loop_counter--);
 }
 
-function resize(){
-    height = window.innerHeight;
-    document.getElementById('buffer').height = height;
-    document.getElementById('buffer-static').height = height;
-    document.getElementById('canvas').height = height;
-    y = height / 2;
-
-    width = window.innerWidth;
-    document.getElementById('buffer').width = width;
-    document.getElementById('buffer-static').width = width;
-    document.getElementById('canvas').width = width;
-    x = width / 2;
-
-    reset_world();
-}
-
 var buffer = document.getElementById('buffer').getContext('2d');
 var buffer_static = document.getElementById('buffer-static').getContext('2d');
 var canvas = document.getElementById('canvas').getContext('2d');
@@ -170,7 +163,6 @@ var world = [];
 
 window.onload = function(){
     resize();
-    window.onresize = resize;
 
     window.requestAnimationFrame(draw);
     window.setInterval(
@@ -178,3 +170,5 @@ window.onload = function(){
       30
     );
 };
+
+window.onresize = resize;
