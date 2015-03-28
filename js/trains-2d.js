@@ -12,34 +12,33 @@ function draw(){
       0
     );
 
-    // Draw scenery.
+    // Draw visible scenery.
     for(var object in scenery){
-        // Only draw visible scenery.
-        if(scenery[object][0] > width){
+        if(scenery[object]['x'] > width){
             continue;
         }
 
-        buffer.fillStyle = scenery[object][4];
+        buffer.fillStyle = scenery[object]['stump-color'];
         buffer.fillRect(
-          scenery[object][0] + scenery[object][2],
-          scenery[object][1] + y,
-          scenery[object][2],
-          scenery[object][3]
+          scenery[object]['x'] + scenery[object]['stump-width'],
+          scenery[object]['y'] + y,
+          scenery[object]['stump-width'],
+          scenery[object]['stump-height']
         );
 
-        buffer.fillStyle = scenery[object][5];
+        buffer.fillStyle = scenery[object]['leaves'];
         buffer.beginPath();
         buffer.moveTo(
-          scenery[object][0],
-          scenery[object][1] + y
+          scenery[object]['x'],
+          scenery[object]['y'] + y
         );
         buffer.lineTo(
-          scenery[object][0] + scenery[object][2] * 1.5,
-          scenery[object][1] + y - scenery[object][3] * 3
+          scenery[object]['x'] + scenery[object]['stump-width'] * 1.5,
+          scenery[object]['y'] + y - scenery[object]['stump-height'] * 3
         );
         buffer.lineTo(
-          scenery[object][0] - scenery[object][6],
-          scenery[object][1] + y
+          scenery[object]['x'] - scenery[object]['height'],
+          scenery[object]['y'] + y
         );
         buffer.closePath();
         buffer.fill();
@@ -64,23 +63,24 @@ function draw(){
 function logic(){
     // Update scenery.
     for(var object in scenery){
-        scenery[object][0] -= 4;
+        scenery[object]['x'] -= 4;
 
-        if(scenery[object][0] > scenery[object][6]){
+        if(scenery[object]['x'] > scenery[object]['height']){
             continue;
         }
 
-        scenery[object][0] = width + Math.random() * 200;
+        scenery[object]['x'] = width + Math.random() * 200;
 
-        scenery[object][1] = Math.random() * height - y;
-        while(scenery[object][1] > -80 - scenery[object][3]
-          && scenery[object][1] < 80){
-            scenery[object][1] = Math.random() * height - y;
+        scenery[object]['y'] = Math.random() * height - y;
+        while(scenery[object]['y'] > -80 - scenery[object]['stump-width']
+          && scenery[object]['y'] < 80){
+            scenery[object]['y'] = Math.random() * height - y;
         }
 
-        scenery[object][2] = Math.random() * 20 + 20;
-        scenery[object][6] = -scenery[object][2] * 3;
-        scenery[object][3] = Math.random() * 20 + 20;
+        scenery[object]['stump-height'] = Math.random() * 20 + 20;
+        scenery[object]['stump-width'] = Math.random() * 20 + 20;
+
+        scenery[object]['height'] = -scenery[object]['stump-width'] * 3;
     }
 }
 
@@ -139,15 +139,15 @@ function resize(){
     scenery.length = 0;
     var loop_counter = 5;
     do{
-        scenery.push([
-          -99 + loop_counter * 420,
-          height,
-          1,
-          1,
-          '#543',
-          random_hex(),
-          3,
-       ]);
+        scenery.push({
+          'height': 3,
+          'leaves': random_hex(),
+          'stump-color': '#543',
+          'stump-height': 1,
+          'stump-width': 1,
+          'x': -99 + loop_counter * 420,
+          'y': height,
+       });
     }while(loop_counter--);
 }
 
