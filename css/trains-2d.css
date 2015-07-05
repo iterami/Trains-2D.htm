@@ -4,3 +4,7 @@ canvas{
     position: absolute;
     top: 0;
 }
+#buffer,
+#buffer-static{
+    display: none;
+}
