@@ -1,10 +1,10 @@
+#buffer,
+#buffer-static{
+    display: none;
+}
 canvas{
     background: #000;
     left: 0;
     position: absolute;
     top: 0;
-}
-#buffer,
-#buffer-static{
-    display: none;
 }
