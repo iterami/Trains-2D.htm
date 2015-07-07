@@ -1,3 +1,5 @@
+'use strict';
+
 function draw(){
     // Draw the world.
     buffer.clearRect(
