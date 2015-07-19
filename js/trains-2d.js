@@ -105,7 +105,7 @@ function resize(){
     document.getElementById('buffer').width = width;
     document.getElementById('buffer-static').width = width;
     document.getElementById('canvas').width = width;
-    x = width / 2;
+    var x = width / 2;
 
     document.getElementById('canvas').style.background = '#141';
 
@@ -158,7 +158,6 @@ var buffer_static = document.getElementById('buffer-static').getContext('2d');
 var canvas = document.getElementById('canvas').getContext('2d');
 var height = 0;
 var scenery = [];
-var x = 0;
 var y = 0;
 var width = 0;
 var world = [];
