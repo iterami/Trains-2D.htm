@@ -107,8 +107,6 @@ function resize(){
     document.getElementById('canvas').width = width;
     var x = width / 2;
 
-    document.getElementById('canvas').style.background = '#141';
-
     // Reset static world components.
     world.length = 0;
     world = [
