@@ -151,7 +151,9 @@ function resize(){
     }while(loop_counter--);
 }
 
-var buffer = document.getElementById('buffer').getContext('2d');
+var buffer = document.getElementById('buffer').getContext('2d', {
+  'alpha': false,
+});
 var buffer_static = document.getElementById('buffer-static').getContext('2d');
 var canvas = document.getElementById('canvas').getContext('2d');
 var height = 0;
