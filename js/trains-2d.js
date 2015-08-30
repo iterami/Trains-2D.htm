@@ -14,6 +14,12 @@ function draw(){
       0
     );
 
+    buffer.save();
+    buffer.translate(
+      0,
+      y
+    );
+
     // Draw visible scenery.
     for(var object in scenery){
         if(scenery[object]['x'] > width){
@@ -23,7 +29,7 @@ function draw(){
         buffer.fillStyle = scenery[object]['stump-color'];
         buffer.fillRect(
           scenery[object]['x'] + scenery[object]['stump-width'],
-          scenery[object]['y'] + y,
+          scenery[object]['y'],
           scenery[object]['stump-width'],
           scenery[object]['stump-height']
         );
@@ -32,19 +38,21 @@ function draw(){
         buffer.beginPath();
         buffer.moveTo(
           scenery[object]['x'],
-          scenery[object]['y'] + y
+          scenery[object]['y']
         );
         buffer.lineTo(
           scenery[object]['x'] + scenery[object]['stump-width'] * 1.5,
-          scenery[object]['y'] + y - scenery[object]['stump-height'] * 3
+          scenery[object]['y'] - scenery[object]['stump-height'] * 3
         );
         buffer.lineTo(
           scenery[object]['x'] - scenery[object]['height'],
-          scenery[object]['y'] + y
+          scenery[object]['y']
         );
         buffer.closePath();
         buffer.fill();
     }
+
+    buffer.restore();
 
     // Draw buffer onto the canvas.
     canvas.clearRect(
