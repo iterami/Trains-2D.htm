@@ -14,12 +14,6 @@ function draw(){
       0
     );
 
-    buffer.save();
-    buffer.translate(
-      0,
-      y
-    );
-
     // Draw visible scenery.
     for(var object in scenery){
         if(scenery[object]['x'] > width){
@@ -52,8 +46,6 @@ function draw(){
         buffer.fill();
     }
 
-    buffer.restore();
-
     // Draw buffer onto the canvas.
     canvas.clearRect(
       0,
@@ -81,10 +73,10 @@ function logic(){
 
         scenery[object]['x'] = width + Math.random() * 200;
 
-        scenery[object]['y'] = Math.random() * height - y;
-        while(scenery[object]['y'] > -80 - scenery[object]['stump-width']
-          && scenery[object]['y'] < 80){
-            scenery[object]['y'] = Math.random() * height - y;
+        scenery[object]['y'] = Math.random() * height;
+        while(scenery[object]['y'] > -80 - scenery[object]['stump-width'] + y
+          && scenery[object]['y'] < 80 + y){
+            scenery[object]['y'] = Math.random() * height;
         }
 
         scenery[object]['stump-height'] = Math.random() * 20 + 20;
