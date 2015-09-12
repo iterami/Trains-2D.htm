@@ -65,7 +65,7 @@ function draw(){
 function logic(){
     // Update scenery.
     for(var object in scenery){
-        scenery[object]['x'] -= 4;
+        scenery[object]['x'] -= speed;
 
         if(scenery[object]['x'] > scenery[object]['height']){
             continue;
@@ -158,6 +158,7 @@ var buffer_static = document.getElementById('buffer-static').getContext('2d');
 var canvas = document.getElementById('canvas').getContext('2d');
 var height = 0;
 var scenery = [];
+var speed = 4;
 var y = 0;
 var width = 0;
 var world = [];
