@@ -159,9 +159,9 @@ var canvas = document.getElementById('canvas').getContext('2d');
 var height = 0;
 var scenery = [];
 var speed = 4;
-var y = 0;
 var width = 0;
 var world = [];
+var y = 0;
 
 window.onload = function(){
     resize();
