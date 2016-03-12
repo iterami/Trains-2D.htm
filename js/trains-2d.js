@@ -164,6 +164,8 @@ var world = [];
 var y = 0;
 
 window.onload = function(){
+    document.body.style.background = '#141';
+
     resize();
 
     window.requestAnimationFrame(draw);
