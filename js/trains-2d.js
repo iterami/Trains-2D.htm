@@ -1,13 +1,6 @@
 'use strict';
 
-function draw(){
-    // Draw the world.
-    buffer.clearRect(
-      0,
-      0,
-      width,
-      height
-    );
+function draw_logic(){
     buffer.drawImage(
       document.getElementById('buffer-static'),
       0,
@@ -45,21 +38,6 @@ function draw(){
         buffer.closePath();
         buffer.fill();
     }
-
-    // Draw buffer onto the canvas.
-    canvas.clearRect(
-      0,
-      0,
-      width,
-      height
-    );
-    canvas.drawImage(
-      document.getElementById('buffer'),
-      0,
-      0
-    );
-
-    window.requestAnimationFrame(draw);
 }
 
 function logic(){
@@ -94,18 +72,9 @@ function random_hex(){
       + choices.charAt(Math.floor(Math.random() * 16));
 }
 
-function resize(){
-    height = window.innerHeight;
-    document.getElementById('buffer').height = height;
+function resize_logic(){
     document.getElementById('buffer-static').height = height;
-    document.getElementById('canvas').height = height;
-    y = height / 2;
-
-    width = window.innerWidth;
-    document.getElementById('buffer').width = width;
     document.getElementById('buffer-static').width = width;
-    document.getElementById('canvas').width = width;
-    var x = width / 2;
 
     // Reset static world components.
     world.length = 0;
@@ -151,28 +120,13 @@ function resize(){
     }while(loop_counter--);
 }
 
-var buffer = document.getElementById('buffer').getContext('2d', {
-  'alpha': false,
-});
 var buffer_static = document.getElementById('buffer-static').getContext('2d');
-var canvas = document.getElementById('canvas').getContext('2d');
-var height = 0;
 var scenery = [];
 var speed = 4;
-var width = 0;
 var world = [];
-var y = 0;
 
 window.onload = function(){
+    init_canvas();
+
     document.body.style.background = '#141';
-
-    resize();
-
-    window.requestAnimationFrame(draw);
-    window.setInterval(
-      logic,
-      30
-    );
 };
-
-window.onresize = resize;
