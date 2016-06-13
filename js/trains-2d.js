@@ -1,11 +1,16 @@
 'use strict';
 
 function draw_logic(){
-    buffer.drawImage(
-      document.getElementById('buffer-static'),
-      0,
-      0
-    );
+    // Draw visible scenery.
+    for(var object in world){
+        buffer.fillStyle = world[object][4];
+        buffer.fillRect(
+          world[object][0],
+          world[object][1],
+          world[object][2],
+          world[object][3]
+        );
+    }
 
     // Draw visible scenery.
     for(var object in scenery){
@@ -73,10 +78,6 @@ function random_hex(){
 }
 
 function resize_logic(){
-    document.getElementById('buffer-static').height = height;
-    document.getElementById('buffer-static').width = width;
-
-    // Reset static world components.
     world.length = 0;
     world = [
       [0, y - 40, width, 80, '#432'],
@@ -86,25 +87,6 @@ function resize_logic(){
       [x - 100, y - 30, 200, 60, '#555'],
       [x + 110, y - 30, 200, 60, '#555'],
     ];
-
-    // Setup world static buffer.
-    buffer_static.clearRect(
-      0,
-      0,
-      height,
-      width
-    );
-    for(var object in world){
-        buffer_static.fillStyle = world[object][4];
-        buffer_static.fillRect(
-          world[object][0],
-          world[object][1],
-          world[object][2],
-          world[object][3]
-        );
-    }
-
-    // Reset scenery.
     scenery.length = 0;
     var loop_counter = 5;
     do{
@@ -118,15 +100,11 @@ function resize_logic(){
           'y': height,
        });
     }while(loop_counter--);
+    document.body.style.background = '#141';
 }
 
-var buffer_static = document.getElementById('buffer-static').getContext('2d');
 var scenery = [];
 var speed = 4;
 var world = [];
 
-window.onload = function(){
-    init_canvas();
-
-    document.body.style.background = '#141';
-};
+window.onload = init_canvas;
