@@ -3,8 +3,8 @@
 function draw_logic(){
     // Draw visible scenery.
     for(var object in world){
-        buffer.fillStyle = world[object][4];
-        buffer.fillRect(
+        canvas_buffer.fillStyle = world[object][4];
+        canvas_buffer.fillRect(
           world[object][0],
           world[object][1],
           world[object][2],
@@ -14,34 +14,34 @@ function draw_logic(){
 
     // Draw visible scenery.
     for(var object in scenery){
-        if(scenery[object]['x'] > width){
+        if(scenery[object]['x'] > canvas_width){
             continue;
         }
 
-        buffer.fillStyle = scenery[object]['stump-color'];
-        buffer.fillRect(
+        canvas_buffer.fillStyle = scenery[object]['stump-color'];
+        canvas_buffer.fillRect(
           scenery[object]['x'] + scenery[object]['stump-width'],
           scenery[object]['y'],
           scenery[object]['stump-width'],
           scenery[object]['stump-height']
         );
 
-        buffer.fillStyle = scenery[object]['leaves'];
-        buffer.beginPath();
-        buffer.moveTo(
+        canvas_buffer.fillStyle = scenery[object]['leaves'];
+        canvas_buffer.beginPath();
+        canvas_buffer.moveTo(
           scenery[object]['x'],
           scenery[object]['y']
         );
-        buffer.lineTo(
+        canvas_buffer.lineTo(
           scenery[object]['x'] + scenery[object]['stump-width'] * 1.5,
           scenery[object]['y'] - scenery[object]['stump-height'] * 3
         );
-        buffer.lineTo(
+        canvas_buffer.lineTo(
           scenery[object]['x'] - scenery[object]['height'],
           scenery[object]['y']
         );
-        buffer.closePath();
-        buffer.fill();
+        canvas_buffer.closePath();
+        canvas_buffer.fill();
     }
 }
 
@@ -54,12 +54,12 @@ function logic(){
             continue;
         }
 
-        scenery[object]['x'] = width + Math.random() * 200;
+        scenery[object]['x'] = canvas_width + Math.random() * 200;
 
-        scenery[object]['y'] = Math.random() * height;
-        while(scenery[object]['y'] > -80 - scenery[object]['stump-width'] + y
-          && scenery[object]['y'] < 80 + y){
-            scenery[object]['y'] = Math.random() * height;
+        scenery[object]['y'] = Math.random() * canvas_height;
+        while(scenery[object]['y'] > -80 - scenery[object]['stump-width'] + canvas_y
+          && scenery[object]['y'] < 80 + canvas_y){
+            scenery[object]['y'] = Math.random() * canvas_height;
         }
 
         scenery[object]['stump-height'] = Math.random() * 20 + 20;
@@ -80,12 +80,12 @@ function random_hex(){
 function resize_logic(){
     world.length = 0;
     world = [
-      [0, y - 40, width, 80, '#432'],
-      [0, y + 10, width, 4, '#444'],
-      [0, y - 14, width, 4, '#444'],
-      [x - 310, y - 30, 200, 60, '#555'],
-      [x - 100, y - 30, 200, 60, '#555'],
-      [x + 110, y - 30, 200, 60, '#555'],
+      [0, canvas_y - 40, canvas_width, 80, '#432'],
+      [0, canvas_y + 10, canvas_width, 4, '#444'],
+      [0, canvas_y - 14, canvas_width, 4, '#444'],
+      [canvas_x - 310, canvas_y - 30, 200, 60, '#555'],
+      [canvas_x - 100, canvas_y - 30, 200, 60, '#555'],
+      [canvas_x + 110, canvas_y - 30, 200, 60, '#555'],
     ];
     scenery.length = 0;
     var loop_counter = 5;
@@ -97,7 +97,7 @@ function resize_logic(){
           'stump-height': 1,
           'stump-width': 1,
           'x': -99 + loop_counter * 420,
-          'y': height,
+          'y': canvas_height,
        });
     }while(loop_counter--);
     document.body.style.background = '#141';
@@ -107,4 +107,4 @@ var scenery = [];
 var speed = 4;
 var world = [];
 
-window.onload = init_canvas;
+window.onload = canvas_init;
