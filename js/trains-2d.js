@@ -26,22 +26,26 @@ function draw_logic(){
           scenery[object]['stump-height']
         );
 
-        canvas_buffer.fillStyle = scenery[object]['leaves'];
-        canvas_buffer.beginPath();
-        canvas_buffer.moveTo(
-          scenery[object]['x'],
-          scenery[object]['y']
+        canvas_draw_path(
+          [
+            {
+              'type': 'moveTo',
+              'x': scenery[object]['x'],
+              'y': scenery[object]['y'],
+            },
+            {
+              'x': scenery[object]['x'] + scenery[object]['stump-width'] * 1.5,
+              'y': scenery[object]['y'] - scenery[object]['stump-height'] * 3,
+            },
+            {
+              'x': scenery[object]['x'] - scenery[object]['height'],
+              'y': scenery[object]['y'],
+            },
+          ],
+          {
+            'fillStyle': scenery[object]['leaves'],
+          }
         );
-        canvas_buffer.lineTo(
-          scenery[object]['x'] + scenery[object]['stump-width'] * 1.5,
-          scenery[object]['y'] - scenery[object]['stump-height'] * 3
-        );
-        canvas_buffer.lineTo(
-          scenery[object]['x'] - scenery[object]['height'],
-          scenery[object]['y']
-        );
-        canvas_buffer.closePath();
-        canvas_buffer.fill();
     }
 }
 
