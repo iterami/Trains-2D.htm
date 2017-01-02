@@ -26,8 +26,11 @@ function draw_logic(){
           scenery[object]['stump-height']
         );
 
-        canvas_draw_path(
-          [
+        canvas_draw_path({
+          'properties': {
+            'fillStyle': scenery[object]['leaves'],
+          },
+          'vertices': [
             {
               'type': 'moveTo',
               'x': scenery[object]['x'],
@@ -42,10 +45,7 @@ function draw_logic(){
               'y': scenery[object]['y'],
             },
           ],
-          {
-            'fillStyle': scenery[object]['leaves'],
-          }
-        );
+        });
     }
 }
 
