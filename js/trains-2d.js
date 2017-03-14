@@ -88,7 +88,7 @@ function resize_logic(){
     do{
         scenery.push({
           'height': 3,
-          'leaves': random_hex(),
+          'leaves': '#' + random_hex(),
           'stump-color': '#543',
           'stump-height': 1,
           'stump-width': 1,
