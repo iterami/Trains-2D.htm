@@ -58,16 +58,26 @@ function logic(){
             continue;
         }
 
-        scenery[object]['x'] = canvas_width + Math.random() * 200;
+        scenery[object]['x'] = core_random_integer({
+          'max': 200,
+        }) + canvas_width;
 
-        scenery[object]['y'] = Math.random() * canvas_height;
+        scenery[object]['y'] = core_random_integer({
+          'max': canvas_height,
+        });
         while(scenery[object]['y'] > -80 - scenery[object]['stump-width'] + canvas_y
           && scenery[object]['y'] < 80 + canvas_y){
-            scenery[object]['y'] = Math.random() * canvas_height;
+            scenery[object]['y'] =  core_random_integer({
+              'max': canvas_height,
+            });
         }
 
-        scenery[object]['stump-height'] = Math.random() * 20 + 20;
-        scenery[object]['stump-width'] = Math.random() * 20 + 20;
+        scenery[object]['stump-height'] = core_random_integer({
+          'max': 20,
+        }) + 20;
+        scenery[object]['stump-width'] = core_random_integer({
+          'max': 20,
+        }) + 20;
 
         scenery[object]['height'] = -scenery[object]['stump-width'] * 3;
     }
@@ -88,7 +98,7 @@ function resize_logic(){
     do{
         scenery.push({
           'height': 3,
-          'leaves': '#' + random_hex(),
+          'leaves': '#' + core_random_hex(),
           'stump-color': '#543',
           'stump-height': 1,
           'stump-width': 1,
