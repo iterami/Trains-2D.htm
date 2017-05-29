@@ -83,6 +83,10 @@ function logic(){
     }
 }
 
+function repo_init(){
+    canvas_init();
+}
+
 function resize_logic(){
     world.length = 0;
     world = [
@@ -112,5 +116,3 @@ function resize_logic(){
 var scenery = [];
 var speed = 4;
 var world = [];
-
-window.onload = canvas_init;
