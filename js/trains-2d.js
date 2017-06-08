@@ -84,6 +84,9 @@ function logic(){
 }
 
 function repo_init(){
+    core_repo_init({
+      'title': 'Trains-2D.htm',
+    });
     canvas_init();
 }
 
