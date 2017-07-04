@@ -12,40 +12,26 @@ function draw_logic(){
         );
     }
 
-    // Draw visible scenery.
+    // Draw scenery.
     for(var object in scenery){
-        if(scenery[object]['x'] > canvas_width){
-            continue;
-        }
+        // Save current buffer.
+        canvas_buffer.save();
 
-        canvas_buffer.fillStyle = scenery[object]['stump-color'];
-        canvas_buffer.fillRect(
-          scenery[object]['x'] + scenery[object]['stump-width'],
-          scenery[object]['y'],
-          scenery[object]['stump-width'],
-          scenery[object]['stump-height']
+        // Translate to object location.
+        canvas_buffer.translate(
+          scenery[object]['x'],
+          scenery[object]['y']
         );
 
         canvas_draw_path({
           'properties': {
-            'fillStyle': scenery[object]['leaves'],
+            'fillStyle': scenery[object]['color'],
           },
-          'vertices': [
-            {
-              'type': 'moveTo',
-              'x': scenery[object]['x'],
-              'y': scenery[object]['y'],
-            },
-            {
-              'x': scenery[object]['x'] + scenery[object]['stump-width'] * 1.5,
-              'y': scenery[object]['y'] - scenery[object]['stump-height'] * 3,
-            },
-            {
-              'x': scenery[object]['x'] - scenery[object]['height'],
-              'y': scenery[object]['y'],
-            },
-          ],
+          'vertices': scenery[object]['vertices'],
         });
+
+        // Save current buffer.
+        canvas_buffer.restore();
     }
 }
 
@@ -54,32 +40,31 @@ function logic(){
     for(var object in scenery){
         scenery[object]['x'] -= speed;
 
-        if(scenery[object]['x'] > scenery[object]['height']){
+        if(scenery[object]['x'] > -canvas_width
+          || scenery[object]['color'] === '#be6400'){
             continue;
         }
 
-        scenery[object]['x'] = core_random_integer({
+        console.log(object,scenery[object]['x'])
+
+        var new_x = core_random_integer({
           'max': 200,
         }) + canvas_width;
-
-        scenery[object]['y'] = core_random_integer({
+        var new_y = core_random_integer({
           'max': canvas_height,
         });
-        while(scenery[object]['y'] > -80 - scenery[object]['stump-width'] + canvas_y
-          && scenery[object]['y'] < 80 + canvas_y){
-            scenery[object]['y'] =  core_random_integer({
+
+        while(new_y > -80 + canvas_y
+          && new_y < 80 + canvas_y){
+            new_y = core_random_integer({
               'max': canvas_height,
             });
         }
 
-        scenery[object]['stump-height'] = core_random_integer({
-          'max': 20,
-        }) + 20;
-        scenery[object]['stump-width'] = core_random_integer({
-          'max': 20,
-        }) + 20;
-
-        scenery[object]['height'] = -scenery[object]['stump-width'] * 3;
+        scenery[object]['x'] = new_x;
+        scenery[object]['y'] = new_y;
+        scenery[object - 1]['x'] = new_x;
+        scenery[object - 1]['y'] = new_y;
     }
 }
 
@@ -103,15 +88,10 @@ function resize_logic(){
     scenery.length = 0;
     var loop_counter = 5;
     do{
-        scenery.push({
-          'height': 3,
-          'leaves': '#' + core_random_hex(),
-          'stump-color': '#543',
-          'stump-height': 1,
-          'stump-width': 1,
+        data_canvas_tree_2d({
           'x': -99 + loop_counter * 420,
-          'y': canvas_height,
-       });
+          'y': 0,
+        });
     }while(loop_counter--);
     document.body.style.background = '#141';
 }
