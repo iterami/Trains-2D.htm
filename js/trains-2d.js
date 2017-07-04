@@ -15,6 +15,7 @@ function draw_logic(){
           'properties': {
             'fillStyle': scenery[object]['color'],
           },
+          'translate': true,
           'vertices': scenery[object]['vertices'],
           'x': scenery[object]['x'],
           'y': scenery[object]['y'],
