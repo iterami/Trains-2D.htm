@@ -76,7 +76,6 @@ function resize_logic(){
     do{
         data_canvas_tree_2d({
           'x': -canvas_width,
-          'y': 0,
         });
     }while(loop_counter--);
     document.body.style.background = '#141';
