@@ -26,7 +26,7 @@ function draw_logic(){
 function logic(){
     // Update scenery.
     for(var object in scenery){
-        scenery[object]['x'] -= speed;
+        scenery[object]['x'] -= core_storage_data['speed'];
 
         if(scenery[object]['x'] > -100
           || scenery[object]['color'] === '#be6400'){
@@ -56,6 +56,11 @@ function logic(){
 
 function repo_init(){
     core_repo_init({
+      'storage': {
+        'speed': 4,
+        'trees': 6,
+      },
+      'storage-menu': '<table><tr><td><input id=speed><td>Speed<tr><td><input id=trees><td>Trees</table>',
       'title': 'Trains-2D.htm',
     });
     canvas_init();
@@ -72,7 +77,7 @@ function resize_logic(){
       [canvas_x + 110, canvas_y - 30, 200, 60, '#555'],
     ];
     scenery.length = 0;
-    var loop_counter = 5;
+    var loop_counter = core_storage_data['trees'] - 1;
     do{
         data_canvas_tree_2d({
           'x': -canvas_width,
@@ -82,5 +87,4 @@ function resize_logic(){
 }
 
 var scenery = [];
-var speed = 4;
 var world = [];
