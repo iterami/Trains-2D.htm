@@ -2,7 +2,11 @@
 
 function draw_logic(){
     for(var object in world){
-        canvas_buffer.fillStyle = world[object][4];
+        canvas_setproperties({
+          'properties': {
+            'fillStyle': world[object][4],
+          },
+        });
         canvas_buffer.fillRect(
           world[object][0],
           world[object][1],
