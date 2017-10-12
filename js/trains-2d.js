@@ -37,17 +37,17 @@ function logic(){
             continue;
         }
 
-        var new_x = canvas_width + core_random_integer({
-          'max': canvas_width
+        var new_x = canvas_properties['width'] + core_random_integer({
+          'max': canvas_properties['width'],
         });
         var new_y = core_random_integer({
-          'max': canvas_height,
+          'max': canvas_properties['height'],
         });
 
         while(new_y > -80 + canvas_y
           && new_y < 80 + canvas_y){
             new_y = core_random_integer({
-              'max': canvas_height,
+              'max': canvas_properties['height'],
             });
         }
 
@@ -73,9 +73,9 @@ function repo_init(){
 function resize_logic(){
     world.length = 0;
     world = [
-      [0, canvas_y - 40, canvas_width, 80, '#432'],
-      [0, canvas_y + 10, canvas_width, 4, '#444'],
-      [0, canvas_y - 14, canvas_width, 4, '#444'],
+      [0, canvas_y - 40, canvas_properties['width'], 80, '#432'],
+      [0, canvas_y + 10, canvas_properties['width'], 4, '#444'],
+      [0, canvas_y - 14, canvas_properties['width'], 4, '#444'],
       [canvas_x - 310, canvas_y - 30, 200, 60, '#555'],
       [canvas_x - 100, canvas_y - 30, 200, 60, '#555'],
       [canvas_x + 110, canvas_y - 30, 200, 60, '#555'],
@@ -84,7 +84,7 @@ function resize_logic(){
     var loop_counter = core_storage_data['trees'] - 1;
     do{
         data_canvas_tree_2d({
-          'x': -canvas_width,
+          'x': -canvas_properties['width'],
         });
     }while(loop_counter--);
     document.body.style.background = '#141';
