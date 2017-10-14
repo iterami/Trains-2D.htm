@@ -44,8 +44,8 @@ function logic(){
           'max': canvas_properties['height'],
         });
 
-        while(new_y > -80 + canvas_y
-          && new_y < 80 + canvas_y){
+        while(new_y > -80 + canvas_properties['height-half']
+          && new_y < 80 + canvas_properties['height-half']){
             new_y = core_random_integer({
               'max': canvas_properties['height'],
             });
@@ -73,12 +73,12 @@ function repo_init(){
 function resize_logic(){
     world.length = 0;
     world = [
-      [0, canvas_y - 40, canvas_properties['width'], 80, '#432'],
-      [0, canvas_y + 10, canvas_properties['width'], 4, '#444'],
-      [0, canvas_y - 14, canvas_properties['width'], 4, '#444'],
-      [canvas_x - 310, canvas_y - 30, 200, 60, '#555'],
-      [canvas_x - 100, canvas_y - 30, 200, 60, '#555'],
-      [canvas_x + 110, canvas_y - 30, 200, 60, '#555'],
+      [0, canvas_properties['height-half'] - 40, canvas_properties['width'], 80, '#432'],
+      [0, canvas_properties['height-half'] + 10, canvas_properties['width'], 4, '#444'],
+      [0, canvas_properties['height-half'] - 14, canvas_properties['width'], 4, '#444'],
+      [canvas_properties['width-half'] - 310, canvas_properties['height-half'] - 30, 200, 60, '#555'],
+      [canvas_properties['width-half'] - 100, canvas_properties['height-half'] - 30, 200, 60, '#555'],
+      [canvas_properties['width-half'] + 110, canvas_properties['height-half'] - 30, 200, 60, '#555'],
     ];
     scenery.length = 0;
     var loop_counter = core_storage_data['trees'] - 1;
