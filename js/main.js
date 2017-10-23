@@ -60,6 +60,10 @@ function logic(){
 
 function repo_init(){
     core_repo_init({
+      'globals': {
+        'scenery': [],
+        'world': [],
+      },
       'storage': {
         'speed': 4,
         'trees': 6,
@@ -89,6 +93,3 @@ function resize_logic(){
     }while(loop_counter--);
     document.body.style.background = '#141';
 }
-
-var scenery = [];
-var world = [];
