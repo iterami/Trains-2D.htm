@@ -72,6 +72,8 @@ function repo_init(){
       'title': 'Trains-2D.htm',
     });
     canvas_init();
+
+    canvas_properties['clearColor'] = '#141';
 }
 
 function resize_logic(){
@@ -91,5 +93,4 @@ function resize_logic(){
           'x': -canvas_properties['width'],
         });
     }while(loop_counter--);
-    document.body.style.background = '#141';
 }
