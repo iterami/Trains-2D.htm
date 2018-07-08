@@ -1,7 +1,7 @@
 'use strict';
 
 function draw_logic(){
-    for(var object in world){
+    for(let object in world){
         canvas_setproperties({
           'properties': {
             'fillStyle': world[object][4],
@@ -14,7 +14,7 @@ function draw_logic(){
           world[object][3]
         );
     }
-    for(var object in scenery){
+    for(let object in scenery){
         canvas_draw_path({
           'properties': {
             'fillStyle': scenery[object]['color'],
@@ -29,7 +29,7 @@ function draw_logic(){
 
 function logic(){
     // Update scenery.
-    for(var object in scenery){
+    for(let object in scenery){
         scenery[object]['x'] -= core_storage_data['speed'];
 
         if(scenery[object]['x'] > -100
@@ -37,10 +37,10 @@ function logic(){
             continue;
         }
 
-        var new_x = canvas_properties['width'] + core_random_integer({
+        let new_x = canvas_properties['width'] + core_random_integer({
           'max': canvas_properties['width'],
         });
-        var new_y = core_random_integer({
+        let new_y = core_random_integer({
           'max': canvas_properties['height'],
         });
 
@@ -87,7 +87,7 @@ function resize_logic(){
       [canvas_properties['width-half'] + 110, canvas_properties['height-half'] - 30, 200, 60, '#555'],
     ];
     scenery.length = 0;
-    var loop_counter = core_storage_data['trees'] - 1;
+    let loop_counter = core_storage_data['trees'] - 1;
     do{
         data_canvas_tree_2d({
           'x': -canvas_properties['width'],
