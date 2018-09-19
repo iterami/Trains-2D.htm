@@ -90,6 +90,7 @@ function resize_logic(){
     let loop_counter = core_storage_data['trees'] - 1;
     do{
         data_canvas_tree_2d({
+          'id': loop_counter,
           'x': -canvas_properties['width'],
         });
     }while(loop_counter--);
