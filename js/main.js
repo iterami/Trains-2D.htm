@@ -28,7 +28,6 @@ function draw_logic(){
 }
 
 function logic(){
-    // Update scenery.
     for(let object in scenery){
         scenery[object]['x'] -= core_storage_data['speed'];
 
