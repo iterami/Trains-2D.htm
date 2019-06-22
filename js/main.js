@@ -90,7 +90,7 @@ function resize_logic(){
     scenery.length = 0;
     let loop_counter = core_storage_data['trees'] - 1;
     do{
-        data_canvas_tree_2d({
+        prefabs_canvas_tree_2d({
           'id': loop_counter,
           'x': -canvas_properties['width'],
         });
