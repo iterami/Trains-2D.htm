@@ -1,7 +1,7 @@
 'use strict';
 
 function draw_logic(){
-    for(let object in world){
+    for(const object in world){
         canvas_setproperties({
           'properties': {
             'fillStyle': world[object][4],
@@ -14,7 +14,7 @@ function draw_logic(){
           world[object][3]
         );
     }
-    for(let object in scenery){
+    for(const object in scenery){
         canvas_draw_path({
           'properties': {
             'fillStyle': scenery[object]['color'],
@@ -28,7 +28,7 @@ function draw_logic(){
 }
 
 function logic(){
-    for(let object in scenery){
+    for(const object in scenery){
         scenery[object]['x'] -= core_storage_data['speed'];
 
         if(scenery[object]['x'] > -100
