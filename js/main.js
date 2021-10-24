@@ -1,6 +1,6 @@
 'use strict';
 
-function draw_logic(){
+function repo_drawlogic(){
     for(const object in world){
         canvas_setproperties({
           'properties': {
@@ -27,7 +27,7 @@ function draw_logic(){
     }
 }
 
-function logic(){
+function repo_logic(){
     for(const object in scenery){
         scenery[object]['x'] -= core_storage_data['speed'];
 
@@ -76,7 +76,7 @@ function repo_init(){
     canvas_properties['clearColor'] = '#141';
 }
 
-function resize_logic(){
+function repo_resizelogic(){
     world.length = 0;
     world = [
       [0, canvas_properties['height-half'] - 40, canvas_properties['width'], 80, '#432'],
