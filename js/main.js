@@ -67,8 +67,8 @@ function repo_init(){
         'speed': 4,
         'trees': 6,
       },
-      'storage-menu': '<table><tr><td><input id=speed min=1 type=number><td>Speed'
-        + '<tr><td><input id=trees min=1 type=number><td>Trees</table>',
+      'storage-menu': '<table><tr><td><input id=speed min=1 step=any type=number><td>Speed'
+        + '<tr><td><input id=trees min=1 step=any type=number><td>Trees</table>',
       'title': 'Trains-2D.htm',
     });
     canvas_init();
