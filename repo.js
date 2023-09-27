@@ -7,7 +7,7 @@ function repo_drawlogic(){
             'fillStyle': world[object][4],
           },
         });
-        canvas_buffer.fillRect(
+        canvas.fillRect(
           world[object][0],
           world[object][1],
           world[object][2],
