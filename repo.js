@@ -3,9 +3,7 @@
 function repo_drawlogic(){
     for(const object in world){
         canvas_setproperties({
-          'properties': {
-            'fillStyle': world[object][4],
-          },
+          'fillStyle': world[object][4],
         });
         canvas.fillRect(
           world[object][0],
