@@ -12,28 +12,57 @@ function repo_drawlogic(){
           world[object][3]
         );
     }
-    for(const object in scenery){
+    for(const object in trees){
         canvas_draw_path({
           'properties': {
-            'fillStyle': scenery[object]['color'],
+            'fillStyle': '#be6400',
           },
           'translate': true,
-          'vertices': scenery[object]['vertices'],
-          'x': scenery[object]['x'],
-          'y': scenery[object]['y'],
+          'vertices': [
+            {
+              'type': 'moveTo',
+              'x': -12,
+              'y': -25,
+            },
+            {
+              'x': 12,
+              'y': -25,
+            },
+            {
+              'x': 12,
+            },
+            {
+              'x': -12,
+            },
+          ],
+          'x': trees[object]['x'],
+          'y': trees[object]['y'] + 25,
+        });
+    }
+    for(const object in trees){
+        canvas_draw_path({
+          'properties': {
+            'fillStyle': trees[object]['color'],
+          },
+          'translate': true,
+          'vertices': trees[object]['vertices'],
+          'x': trees[object]['x'],
+          'y': trees[object]['y'],
         });
     }
 }
 
 function repo_logic(){
-    for(const object in scenery){
-        scenery[object]['x'] -= core_storage_data['speed'];
+    let sort = false;
+    for(const object in trees){
+        trees[object]['x'] -= core_storage_data['speed'];
 
-        if(scenery[object]['x'] > -100
-          || scenery[object]['color'] === '#be6400'){
+        if(trees[object]['x'] > -100
+          || trees[object]['color'] === '#be6400'){
             continue;
         }
 
+        sort = true;
         let new_x = canvas_properties['width'] + core_random_integer({
           'max': canvas_properties['width'],
         });
@@ -48,17 +77,22 @@ function repo_logic(){
             });
         }
 
-        scenery[object]['x'] = new_x;
-        scenery[object]['y'] = new_y;
-        scenery[object - 1]['x'] = new_x;
-        scenery[object - 1]['y'] = new_y + 25;
+        trees[object]['x'] = new_x;
+        trees[object]['y'] = new_y;
+    }
+
+    if(sort){
+        trees = core_sort_property({
+          'array': trees,
+          'property': 'y',
+        });
     }
 }
 
 function repo_init(){
     core_repo_init({
       'globals': {
-        'scenery': [],
+        'trees': [],
         'world': [],
       },
       'storage': {
@@ -84,14 +118,12 @@ function repo_resizelogic(){
       [canvas_properties['width-half'] - 100, canvas_properties['height-half'] - 30, 200, 60, '#555'],
       [canvas_properties['width-half'] + 110, canvas_properties['height-half'] - 30, 200, 60, '#555'],
     ];
-    scenery.length = 0;
+    trees.length = 0;
     let loop_counter = core_storage_data['trees'] - 1;
     do{
-        scenery.push(
-          ...prefabs_canvas_tree_2d({
-            'id': loop_counter,
-            'x': -canvas_properties['width'],
-          })
-        );
+        trees.push(prefabs_canvas_tree_2d({
+          'id': loop_counter,
+          'x': -canvas_properties['width'],
+        })[1]);
     }while(loop_counter--);
 }
