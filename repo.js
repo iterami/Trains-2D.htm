@@ -87,9 +87,11 @@ function repo_resizelogic(){
     scenery.length = 0;
     let loop_counter = core_storage_data['trees'] - 1;
     do{
-        prefabs_canvas_tree_2d({
-          'id': loop_counter,
-          'x': -canvas_properties['width'],
-        });
+        scenery.push(
+          ...prefabs_canvas_tree_2d({
+            'id': loop_counter,
+            'x': -canvas_properties['width'],
+          })
+        );
     }while(loop_counter--);
 }
