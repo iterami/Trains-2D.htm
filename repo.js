@@ -82,8 +82,9 @@ function repo_logic(){
     }
 
     if(sort){
-        trees = core_sort_property({
+        core_sort_property({
           'array': trees,
+          'clone': false,
           'property': 'y',
         });
     }
