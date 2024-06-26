@@ -101,7 +101,7 @@ function repo_init(){
         'trees': 6,
       },
       'storage-menu': '<table><tr><td><input class=mini id=speed min=1 step=any type=number><td>Speed'
-        + '<tr><td><input class=mini id=trees min=1 step=any type=number><td>Trees</table>',
+        + '<tr><td><input class=mini id=trees min=1 step=1 type=number><td>Trees</table>',
       'title': 'Trains-2D.htm',
     });
     canvas_init();
@@ -120,7 +120,7 @@ function repo_resizelogic(){
       [canvas_properties['width-half'] + 110, canvas_properties['height-half'] - 30, 200, 60, '#555'],
     ];
     trees.length = 0;
-    let loop_counter = core_storage_data['trees'] - 1;
+    let loop_counter = Math.floor(core_storage_data['trees']) - 1;
     do{
         trees.push(prefabs_canvas_tree_2d({
           'id': loop_counter,
