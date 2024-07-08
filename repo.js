@@ -12,28 +12,20 @@ function repo_drawlogic(){
           world[object][3]
         );
     }
+    canvas_setproperties({
+      'fillStyle': '#be6400',
+    });
     for(const object in trees){
         canvas_draw_path({
-          'properties': {
-            'fillStyle': '#be6400',
-          },
           'translate': true,
           'vertices': [
-            {
-              'type': 'moveTo',
-              'x': -12,
-              'y': -25,
-            },
-            {
-              'x': 12,
-              'y': -25,
-            },
-            {
-              'x': 12,
-            },
-            {
-              'x': -12,
-            },
+            [
+              'rect',
+              -12,
+              -25,
+              24,
+              50,
+            ],
           ],
           'x': trees[object]['x'],
           'y': trees[object]['y'] + 25,
