@@ -90,7 +90,7 @@ function repo_init(){
       },
       'storage': {
         'speed': 4,
-        'trees': 6,
+        'trees': 20,
       },
       'storage-menu': '<table><tr><td><input class=mini id=speed min=1 step=any type=number><td>Speed'
         + '<tr><td><input class=mini id=trees min=1 step=1 type=number><td>Trees</table>',
@@ -115,8 +115,10 @@ function repo_resizelogic(){
     let loop_counter = Math.floor(core_storage_data['trees']) - 1;
     do{
         trees.push(prefabs_canvas_tree_2d({
+          'height-leaf': 50 + Math.random() * 50,
           'id': loop_counter,
           'x': -canvas_properties['width'],
+          'width-leaf': 50 + Math.random() * 50,
         })[1]);
     }while(loop_counter--);
 }
