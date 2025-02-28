@@ -102,7 +102,6 @@ function repo_init(){
 }
 
 function repo_resizelogic(){
-    world.length = 0;
     world = [
       [0, canvas_properties['height-half'] - 40, canvas_properties['width'], 80, '#432'],
       [0, canvas_properties['height-half'] + 10, canvas_properties['width'], 4, '#444'],
@@ -111,7 +110,7 @@ function repo_resizelogic(){
       [canvas_properties['width-half'] - 100, canvas_properties['height-half'] - 30, 200, 60, '#555'],
       [canvas_properties['width-half'] + 110, canvas_properties['height-half'] - 30, 200, 60, '#555'],
     ];
-    trees.length = 0;
+    core_object_reset(trees);
     let loop_counter = Math.floor(core_storage_data['trees']) - 1;
     do{
         trees.push(prefabs_canvas_tree_2d({
