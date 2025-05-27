@@ -44,6 +44,25 @@ function repo_drawlogic(){
     }
 }
 
+function repo_init(){
+    core_repo_init({
+      'globals': {
+        'trees': [],
+        'world': [],
+      },
+      'storage': {
+        'speed': 4,
+        'trees': 20,
+      },
+      'storage-menu': '<table><tr><td><input class=mini id=speed min=1 step=any type=number><td>Speed'
+        + '<tr><td><input class=mini id=trees min=1 step=1 type=number><td>Trees</table>',
+      'title': 'Trains-2D.htm',
+    });
+    canvas_init();
+
+    canvas_properties['clearColor'] = '#141';
+}
+
 function repo_logic(){
     let sort = false;
     for(const object in trees){
@@ -80,25 +99,6 @@ function repo_logic(){
           'property': 'y',
         });
     }
-}
-
-function repo_init(){
-    core_repo_init({
-      'globals': {
-        'trees': [],
-        'world': [],
-      },
-      'storage': {
-        'speed': 4,
-        'trees': 20,
-      },
-      'storage-menu': '<table><tr><td><input class=mini id=speed min=1 step=any type=number><td>Speed'
-        + '<tr><td><input class=mini id=trees min=1 step=1 type=number><td>Trees</table>',
-      'title': 'Trains-2D.htm',
-    });
-    canvas_init();
-
-    canvas_properties['clearColor'] = '#141';
 }
 
 function repo_resizelogic(){
