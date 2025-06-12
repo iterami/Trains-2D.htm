@@ -74,20 +74,12 @@ function repo_logic(){
         }
 
         sort = true;
-        let new_x = canvas_properties['width'] + core_random_integer({
-          'max': canvas_properties['width'],
-        });
-        let new_y = core_random_integer({
-          'max': canvas_properties['height'],
-        });
-
+        let new_x = canvas_properties['width'] + core_random_integer(canvas_properties['width']);
+        let new_y = core_random_integer(canvas_properties['height']);
         while(new_y > -80 + canvas_properties['height-half']
           && new_y < 80 + canvas_properties['height-half']){
-            new_y = core_random_integer({
-              'max': canvas_properties['height'],
-            });
+            new_y = core_random_integer(canvas_properties['height']);
         }
-
         trees[object]['x'] = new_x;
         trees[object]['y'] = new_y;
     }
