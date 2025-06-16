@@ -27,19 +27,19 @@ function repo_drawlogic(){
               50,
             ],
           ],
-          'x': trees[object]['x'],
-          'y': trees[object]['y'] + 25,
+          'x': trees[object].x,
+          'y': trees[object].y + 25,
         });
     }
     for(const object in trees){
         canvas_draw_path({
           'properties': {
-            'fillStyle': trees[object]['color'],
+            'fillStyle': trees[object].color,
           },
           'translate': true,
-          'vertices': trees[object]['vertices'],
-          'x': trees[object]['x'],
-          'y': trees[object]['y'],
+          'vertices': trees[object].vertices,
+          'x': trees[object].x,
+          'y': trees[object].y,
         });
     }
 }
@@ -60,28 +60,28 @@ function repo_init(){
     });
     canvas_init();
 
-    canvas_properties['clearColor'] = '#141';
+    canvas_properties.clearColor = '#141';
 }
 
 function repo_logic(){
     let sort = false;
     for(const object in trees){
-        trees[object]['x'] -= core_storage_data['speed'];
+        trees[object].x -= core_storage_data.speed;
 
-        if(trees[object]['x'] > -100
-          || trees[object]['color'] === '#be6400'){
+        if(trees[object].x > -100
+          || trees[object].color === '#be6400'){
             continue;
         }
 
         sort = true;
-        let new_x = canvas_properties['width'] + core_random_integer(canvas_properties['width']);
-        let new_y = core_random_integer(canvas_properties['height']);
-        while(new_y > -80 + canvas_properties['height-half']
-          && new_y < 80 + canvas_properties['height-half']){
-            new_y = core_random_integer(canvas_properties['height']);
+        let new_x = canvas_properties.width + core_random_integer(canvas_properties.width);
+        let new_y = core_random_integer(canvas_properties.height);
+        while(new_y > -80 + canvas_properties.height_half
+          && new_y < 80 + canvas_properties.height_half){
+            new_y = core_random_integer(canvas_properties.height);
         }
-        trees[object]['x'] = new_x;
-        trees[object]['y'] = new_y;
+        trees[object].x = new_x;
+        trees[object].y = new_y;
     }
 
     if(sort){
@@ -95,20 +95,20 @@ function repo_logic(){
 
 function repo_resizelogic(){
     world = [
-      [0, canvas_properties['height-half'] - 40, canvas_properties['width'], 80, '#432'],
-      [0, canvas_properties['height-half'] + 10, canvas_properties['width'], 4, '#444'],
-      [0, canvas_properties['height-half'] - 14, canvas_properties['width'], 4, '#444'],
-      [canvas_properties['width-half'] - 310, canvas_properties['height-half'] - 30, 200, 60, '#555'],
-      [canvas_properties['width-half'] - 100, canvas_properties['height-half'] - 30, 200, 60, '#555'],
-      [canvas_properties['width-half'] + 110, canvas_properties['height-half'] - 30, 200, 60, '#555'],
+      [0, canvas_properties.height_half - 40, canvas_properties.width, 80, '#432'],
+      [0, canvas_properties.height_half + 10, canvas_properties.width, 4, '#444'],
+      [0, canvas_properties.height_half - 14, canvas_properties.width, 4, '#444'],
+      [canvas_properties.width_half - 310, canvas_properties.height_half - 30, 200, 60, '#555'],
+      [canvas_properties.width_half - 100, canvas_properties.height_half - 30, 200, 60, '#555'],
+      [canvas_properties.width_half + 110, canvas_properties.height_half - 30, 200, 60, '#555'],
     ];
     core_object_reset(trees);
-    let loop_counter = Math.floor(core_storage_data['trees']) - 1;
+    let loop_counter = Math.floor(core_storage_data.trees) - 1;
     do{
         trees.push(prefabs_canvas_tree_2d({
           'height-leaf': 50 + Math.random() * 50,
           'id': loop_counter,
-          'x': -canvas_properties['width'],
+          'x': -canvas_properties.width,
           'width-leaf': 50 + Math.random() * 50,
         })[1]);
     }while(loop_counter--);
