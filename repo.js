@@ -54,7 +54,7 @@ function repo_init(){
         'speed': 4,
         'trees': 20,
       },
-      'storage-menu': '<table><tr><td><input class=mini id=speed min=1 step=any type=number><td>Speed'
+      'storage_menu': '<table><tr><td><input class=mini id=speed min=1 step=any type=number><td>Speed'
         + '<tr><td><input class=mini id=trees min=1 step=1 type=number><td>Trees</table>',
       'title': 'Trains-2D.htm',
     });
