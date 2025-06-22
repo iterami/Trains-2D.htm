@@ -12,34 +12,24 @@ function repo_drawlogic(){
           world[object][3]
         );
     }
-    canvas_setproperties({
-      'fillStyle': '#be6400',
-    });
-    for(const object in trees){
-        canvas_draw_path({
-          'translate': true,
-          'vertices': [
-            [
-              'rect',
-              -12,
-              -25,
-              24,
-              50,
-            ],
-          ],
-          'x': trees[object].x,
-          'y': trees[object].y + 25,
-        });
-    }
-    for(const object in trees){
+    for(const tree of trees){
         canvas_draw_path({
           'properties': {
-            'fillStyle': trees[object].color,
+            'fillStyle': '#be6400',
           },
           'translate': true,
-          'vertices': trees[object].vertices,
-          'x': trees[object].x,
-          'y': trees[object].y,
+          'vertices': tree.base.vertices,
+          'x': tree.x,
+          'y': tree.y,
+        });
+        canvas_draw_path({
+          'properties': {
+            'fillStyle': tree.leaf.color,
+          },
+          'translate': true,
+          'vertices': tree.leaf.vertices,
+          'x': tree.x,
+          'y': tree.y,
         });
     }
 }
@@ -65,11 +55,10 @@ function repo_init(){
 
 function repo_logic(){
     let sort = false;
-    for(const object in trees){
-        trees[object].x -= core_storage_data.speed;
+    for(const tree of trees){
+        tree.x -= core_storage_data.speed;
 
-        if(trees[object].x > -100
-          || trees[object].color === '#be6400'){
+        if(tree.x > -50){
             continue;
         }
 
@@ -80,8 +69,8 @@ function repo_logic(){
           && new_y < 80 + canvas_properties.height_half){
             new_y = core_random_integer(canvas_properties.height);
         }
-        trees[object].x = new_x;
-        trees[object].y = new_y;
+        tree.x = new_x;
+        tree.y = new_y;
     }
 
     if(sort){
@@ -105,11 +94,71 @@ function repo_resizelogic(){
     core_object_reset(trees);
     let loop_counter = Math.floor(core_storage_data.trees) - 1;
     do{
-        trees.push(prefabs_canvas_tree_2d({
-          'height-leaf': 50 + Math.random() * 50,
+        trees.push(tree_grow({
+          'height_base': 10 + Math.random() * 25,
+          'height_leaf': 40 + Math.random() * 60,
           'id': loop_counter,
-          'x': -canvas_properties.width,
-          'width-leaf': 50 + Math.random() * 50,
-        })[1]);
+          'width_leaf': 40 + Math.random() * 60,
+          'x': -50,
+        }));
     }while(loop_counter--);
+}
+
+// Required args: height_base, height_leaf, id, width_leaf, x
+function tree_grow(args){
+    const half_leaf = args.width_leaf / 2;
+    return {
+      'base': {
+        'color': args.color_base,
+        'vertices': [
+          [
+            'moveTo',
+            -12,
+            args.height_base,
+          ],
+          [
+            'lineTo',
+            12,
+            args.height_base,
+          ],
+          [
+            'lineTo',
+            12,
+            0,
+          ],
+          [
+            'lineTo',
+            -12,
+            0,
+          ],
+        ],
+      },
+      'leaf': {
+        'color': '#' + core_random_hex(),
+        'vertices': [
+          [
+            'moveTo',
+            -half_leaf,
+            -args.height_leaf,
+          ],
+          [
+            'lineTo',
+            half_leaf,
+            -args.height_leaf,
+          ],
+          [
+            'lineTo',
+            half_leaf,
+            0,
+          ],
+          [
+            'lineTo',
+            -half_leaf,
+            0,
+          ],
+        ],
+      },
+      'x': args.x,
+      'y': -args.height_base,
+    };
 }
