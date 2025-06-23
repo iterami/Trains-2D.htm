@@ -63,7 +63,10 @@ function repo_logic(){
         }
 
         sort = true;
-        let new_x = canvas_properties.width + core_random_integer(canvas_properties.width);
+        let new_x = Math.max(
+          core_random_integer(canvas_properties.width),
+          100
+        ) + canvas_properties.width;
         let new_y = core_random_integer(canvas_properties.height);
         while(new_y > -80 + canvas_properties.height_half
           && new_y < 80 + canvas_properties.height_half){
@@ -97,9 +100,7 @@ function repo_resizelogic(){
         trees.push(tree_grow({
           'height_base': 10 + Math.random() * 25,
           'height_leaf': 40 + Math.random() * 60,
-          'id': loop_counter,
           'width_leaf': 40 + Math.random() * 60,
-          'x': -50,
         }));
     }while(loop_counter--);
 }
@@ -158,7 +159,7 @@ function tree_grow(args){
           ],
         ],
       },
-      'x': args.x,
+      'x': -50,
       'y': -args.height_base,
     };
 }
