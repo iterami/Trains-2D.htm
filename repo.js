@@ -65,7 +65,7 @@ function repo_logic(){
         sort = true;
         let new_x = Math.max(
           core_random_integer(canvas_properties.width),
-          100
+          50
         ) + canvas_properties.width;
         let new_y = core_random_integer(canvas_properties.height);
         while(new_y > -80 + canvas_properties.height_half
