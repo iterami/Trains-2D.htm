@@ -22,12 +22,12 @@ function repo_drawlogic(){
             [
               'moveTo',
               -12,
-              tree.base_height,
+              -tree.base_height,
             ],
             [
               'lineTo',
               12,
-              tree.base_height,
+              -tree.base_height,
             ],
             [
               'lineTo',
@@ -52,22 +52,22 @@ function repo_drawlogic(){
             [
               'moveTo',
               -tree.leaf_half,
-              -tree.leaf_height,
+              -tree.leaf_height - tree.base_height,
             ],
             [
               'lineTo',
               tree.leaf_half,
-              -tree.leaf_height,
+              -tree.leaf_height - tree.base_height,
             ],
             [
               'lineTo',
               tree.leaf_half,
-              0,
+              -tree.base_height,
             ],
             [
               'lineTo',
               -tree.leaf_half,
-              0,
+              -tree.base_height,
             ],
           ],
           'x': tree.x,
@@ -139,9 +139,7 @@ function tree_grow(){
       'leaf_half': (40 + Math.random() * 60) / 2,
       'leaf_height': 40 + Math.random() * 60,
       'x': -99,
-      'y': core_random_integer(canvas_properties.height_half) + (Math.random() < .5
-        ? -60
-        : canvas_properties.height_half + 60),
+      'y': 0,
     };
 }
 
@@ -152,4 +150,7 @@ function tree_randomize(tree){
       core_random_integer(canvas_properties.width),
       50
     ) + canvas_properties.width;
+    tree.y = core_random_integer(canvas_properties.height_half - 50) + (Math.random() < .5
+      ? 0
+      : canvas_properties.height_half + 50);
 }
