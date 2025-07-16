@@ -18,16 +18,58 @@ function repo_drawlogic(){
             'fillStyle': '#be6400',
           },
           'translate': true,
-          'vertices': tree.base.vertices,
+          'vertices': [
+            [
+              'moveTo',
+              -12,
+              tree.base_height,
+            ],
+            [
+              'lineTo',
+              12,
+              tree.base_height,
+            ],
+            [
+              'lineTo',
+              12,
+              0,
+            ],
+            [
+              'lineTo',
+              -12,
+              0,
+            ],
+          ],
           'x': tree.x,
           'y': tree.y,
         });
         canvas_draw_path({
           'properties': {
-            'fillStyle': tree.leaf.color,
+            'fillStyle': tree.leaf_color,
           },
           'translate': true,
-          'vertices': tree.leaf.vertices,
+          'vertices': [
+            [
+              'moveTo',
+              -tree.leaf_half,
+              -tree.leaf_height,
+            ],
+            [
+              'lineTo',
+              tree.leaf_half,
+              -tree.leaf_height,
+            ],
+            [
+              'lineTo',
+              tree.leaf_half,
+              0,
+            ],
+            [
+              'lineTo',
+              -tree.leaf_half,
+              0,
+            ],
+          ],
           'x': tree.x,
           'y': tree.y,
         });
@@ -56,24 +98,13 @@ function repo_init(){
 function repo_logic(){
     let sort = false;
     for(const tree of trees){
-        tree.x -= core_storage_data.speed;
-
         if(tree.x > -50){
+            tree.x -= core_storage_data.speed;
             continue;
         }
 
         sort = true;
-        let new_x = Math.max(
-          core_random_integer(canvas_properties.width),
-          50
-        ) + canvas_properties.width;
-        let new_y = core_random_integer(canvas_properties.height);
-        while(new_y > -80 + canvas_properties.height_half
-          && new_y < 80 + canvas_properties.height_half){
-            new_y = core_random_integer(canvas_properties.height);
-        }
-        tree.x = new_x;
-        tree.y = new_y;
+        tree_randomize(tree);
     }
 
     if(sort){
@@ -97,69 +128,28 @@ function repo_resizelogic(){
     core_object_reset(trees);
     let loop_counter = Math.floor(core_storage_data.trees) - 1;
     do{
-        trees.push(tree_grow({
-          'height_base': 10 + Math.random() * 25,
-          'height_leaf': 40 + Math.random() * 60,
-          'width_leaf': 40 + Math.random() * 60,
-        }));
+        trees.push(tree_grow());
     }while(loop_counter--);
 }
 
-// Required args: height_base, height_leaf, id, width_leaf, x
-function tree_grow(args){
-    const half_leaf = args.width_leaf / 2;
+function tree_grow(){
     return {
-      'base': {
-        'color': args.color_base,
-        'vertices': [
-          [
-            'moveTo',
-            -12,
-            args.height_base,
-          ],
-          [
-            'lineTo',
-            12,
-            args.height_base,
-          ],
-          [
-            'lineTo',
-            12,
-            0,
-          ],
-          [
-            'lineTo',
-            -12,
-            0,
-          ],
-        ],
-      },
-      'leaf': {
-        'color': '#' + core_random_hex(),
-        'vertices': [
-          [
-            'moveTo',
-            -half_leaf,
-            -args.height_leaf,
-          ],
-          [
-            'lineTo',
-            half_leaf,
-            -args.height_leaf,
-          ],
-          [
-            'lineTo',
-            half_leaf,
-            0,
-          ],
-          [
-            'lineTo',
-            -half_leaf,
-            0,
-          ],
-        ],
-      },
-      'x': -50,
-      'y': -args.height_base,
+      'base_height': 10 + Math.random() * 25,
+      'leaf_color': '#' + core_random_hex(),
+      'leaf_half': (40 + Math.random() * 60) / 2,
+      'leaf_height': 40 + Math.random() * 60,
+      'x': -99,
+      'y': core_random_integer(canvas_properties.height_half) + (Math.random() < .5
+        ? -60
+        : canvas_properties.height_half + 60),
     };
+}
+
+function tree_randomize(tree){
+    tree.leaf_color = '#' + core_random_hex();
+    tree.base_height = 10 + Math.random() * 25;
+    tree.x = Math.max(
+      core_random_integer(canvas_properties.width),
+      50
+    ) + canvas_properties.width;
 }
