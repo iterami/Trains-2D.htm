@@ -125,11 +125,11 @@ function repo_resizelogic(){
       [canvas_properties.width_half - 100, canvas_properties.height_half - 30, 200, 60, '#555'],
       [canvas_properties.width_half + 110, canvas_properties.height_half - 30, 200, 60, '#555'],
     ];
+
     core_object_reset(trees);
-    let loop_counter = Math.floor(core_storage_data.trees) - 1;
-    do{
+    for(let i = 0; i < core_storage_data.trees; i++){
         trees.push(tree_grow());
-    }while(loop_counter--);
+    }
 }
 
 function tree_grow(){
